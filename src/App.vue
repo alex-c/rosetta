@@ -1,32 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+    <div id="titlebar">
+      <img src="./assets/icons/R-32.png" />
+      Rosetta
     </div>
-    <router-view />
+    <div id="screen"><router-view /></div>
   </div>
 </template>
 
 <style lang="scss">
+@import './style/colors.scss';
+@import './assets/fonts/fonts.css';
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  font-family: metropolisregular, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: $color-bg-app;
+  color: white;
 }
 
-#nav {
-  padding: 30px;
+#titlebar {
+  height: 32px;
+  background-color: $color-bg-view;
+  text-align: left;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+#screen {
 }
 </style>
