@@ -5,6 +5,9 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+// Material Design Icons
+import '@mdi/font/css/materialdesignicons.min.css';
+
 new Vue({
   router,
   store,
