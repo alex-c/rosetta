@@ -28,14 +28,13 @@ export default {
   height: 24px;
   margin: 4px;
   & > .mdi:before {
-    display: block;
     width: 16px;
     height: 16px;
     margin: 4px;
   }
   &:hover {
     cursor: pointer;
-    background-color: $color-bg-content;
+    background-color: $color-bg-view;
   }
 }
 </style>

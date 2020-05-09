@@ -3,6 +3,7 @@
     <img src="../assets/icons/R-32.png" />
     <div id="title">Rosetta</div>
     <div id="actions">
+      <Action icon="cog" />
       <Action icon="window-minimize" @click="minimize" />
       <Action icon="window-restore" @click="restore" v-if="maximized" />
       <Action icon="window-maximize" @click="maximize" v-else />
@@ -49,8 +50,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../style/colors.scss';
+
 #titlebar {
   display: flex;
+  background-color: $color-bg-content;
+  text-align: left;
 }
 
 #title {
