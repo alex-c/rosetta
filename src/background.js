@@ -27,8 +27,8 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    //titleBarStyle: 'hidden',
-    //frame: isLinuxOrBSD,
+    titleBarStyle: 'hidden',
+    frame: isLinuxOrBSD,
     webPreferences: {
       nodeIntegration: true,
     },
