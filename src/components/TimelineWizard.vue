@@ -12,6 +12,6 @@ export default {
 
 <style lang="scss" scoped>
 .timeline-wizard {
-  padding: 8px;
+  padding: 16px 8px;
 }
 </style>

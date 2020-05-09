@@ -8,9 +8,11 @@
     <div id="sidebar-drawer" v-if="menu != 'none'">
       <div id="menu-projects" v-if="menu == 'projects'">
         <div class="menu-header">Projects</div>
+        <div class="placeholder">No projects bookmarked.</div>
       </div>
       <div id="menu-translations" v-if="menu == 'translations'">
-        <div class="menu-header">Translations</div>
+        <div class="menu-header">Locales</div>
+        <div class="placeholder">No project loaded.</div>
       </div>
       <div id="menu-translations" v-if="menu == 'settings'">
         <div class="menu-header">Settings</div>
@@ -64,7 +66,7 @@ export default {
 
 #sidebar-drawer {
   float: left;
-  width: 200px;
+  width: 300px;
   height: 100%;
   text-align: left;
   background-color: $color-bg-view;
@@ -74,5 +76,9 @@ export default {
   padding: 8px;
   background-color: $color-bg-app;
   border-bottom: 1px solid $color-primary;
+}
+
+.placeholder {
+  padding: 16px;
 }
 </style>

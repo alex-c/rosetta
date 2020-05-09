@@ -28,6 +28,12 @@ export default {
   margin-left: 16px;
   padding-left: 16px;
   min-height: 32px;
+  &:first-child {
+    padding-top: 0px;
+  }
+  &:last-child {
+    padding-bottom: 0px;
+  }
 }
 
 .timeline-step-circle {

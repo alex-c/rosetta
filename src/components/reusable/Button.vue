@@ -1,5 +1,5 @@
 <template>
-  <div class="button" :class="[sizeClass]" @click="$emit('click')">
+  <div :class="['button', sizeClass]" @click="$emit('click')">
     <span v-if="icon !== undefined" class="mdi" :class="'mdi-' + icon" />
     <slot />
   </div>

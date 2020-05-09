@@ -10,9 +10,11 @@ import '@mdi/font/css/materialdesignicons.min.css';
 
 // Load reusable components
 import Button from './components/reusable/Button.vue';
+import Select from './components/reusable/Select.vue';
 
 // Register reusable components
 Vue.component('Button', Button);
+Vue.component('Select', Select);
 
 new Vue({
   router,

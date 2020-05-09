@@ -31,6 +31,7 @@ export default {
 <style lang="scss">
 @import './style/colors.scss';
 @import './style/classes.scss';
+@import './style/defaults.scss';
 @import './assets/fonts/fonts.css';
 
 #app {
@@ -55,11 +56,12 @@ export default {
 
 #workspace {
   position: fixed;
-  left: 241px;
+  left: 341px;
   top: 32px;
   right: 0px;
   bottom: 0px;
   text-align: left;
+  border-top: 1px solid $color-dark-border;
   &.expanded {
     left: 41px;
   }

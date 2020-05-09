@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 .center {
   text-align: center;
 }
@@ -8,4 +10,9 @@
 
 .right {
   float: right;
+}
+
+.placeholder {
+  text-align: center;
+  color: #A0A0A0;
 }

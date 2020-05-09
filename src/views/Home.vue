@@ -5,22 +5,26 @@
       <div id="wizard-body">
         <TimelineWizard>
           <TimelineStep icon="folder-open">
-            <span>Select a directory to open a i18n project:</span>
+            <span>Select a directory to open an i18n project:</span>
             <div class="center" style="margin-top: 8px;">
               <Button icon="folder-open" @click="openDirectoryDialog">Select Directory</Button>
               <input ref="directoryDialog" type="file" webkitdirectory hidden />
             </div>
           </TimelineStep>
           <TimelineStep icon="format-font">
-            <span>Select a i18n format:</span>
+            <span>Select an i18n format:</span>
             <div class="center" style="margin-top: 8px;">
-              <select>
-                <option>vue-i18n</option>
-              </select>
+              <Select
+                :options="[
+                  { label: 'i18next', value: 'i18next' },
+                  { label: 'vue-i18n (Vue i18n)', value: 'vue-i18n' },
+                ]"
+                width="200px"
+              />
             </div>
           </TimelineStep>
           <TimelineStep icon="bookmark">
-            <span>Enter a name to bookmark this project:</span>
+            <span>Enter a name, if you want to bookmark this project:</span>
             <div class="center" style="margin-top: 8px;">
               <input type="text" placeholder="Project name" />
             </div>
