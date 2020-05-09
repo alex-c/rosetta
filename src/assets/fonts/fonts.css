@@ -1,15 +1,23 @@
 @font-face {
-  font-family: 'metropolisblack';
-  src: url('metropolis-black-webfont.woff2') format('woff2'),
-       url('metropolis-black-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'inconsolatamedium';
+    src: url('inconsolata-webfont.woff2') format('woff2'),
+         url('inconsolata-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'metropolisregular';
-  src: url('metropolis-regular-webfont.woff2') format('woff2'),
-       url('metropolis-regular-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'sf_ui_textregular';
+    src: url('sfuitext-regular-webfont.woff2') format('woff2'),
+         url('sfuitext-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'metropolisregular';
+    src: url('metropolis-regular-webfont.woff2') format('woff2'),
+         url('metropolis-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }

@@ -3,20 +3,21 @@
     <img src="../assets/icons/R-32.png" />
     <div id="title">Rosetta</div>
     <div id="actions">
-      <Action icon="cog" />
-      <Action icon="window-minimize" @click="minimize" />
-      <Action icon="window-restore" @click="restore" v-if="maximized" />
-      <Action icon="window-maximize" @click="maximize" v-else />
-      <Action icon="window-close" @click="close" />
+      <TitlebarAction icon="window-minimize" @click="minimize" />
+      <TitlebarAction icon="window-restore" @click="restore" v-if="maximized" />
+      <TitlebarAction icon="window-maximize" @click="maximize" v-else />
+      <TitlebarAction icon="window-close" @click="close" />
     </div>
   </div>
 </template>
 
 <script>
 import { remote } from 'electron';
+import TitlebarAction from './TitlebarAction.vue';
 
 export default {
   name: 'titlebar',
+  components: { TitlebarAction },
   data() {
     const window = remote.getCurrentWindow();
     return {

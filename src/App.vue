@@ -1,22 +1,20 @@
 <template>
   <div id="app">
     <Titlebar />
-    <div id="screen">
-      <Menu @collapsed="resize" />
-      <div id="workspace" :class="{ expanded: workspaceExpanded }">
-        Translations
-      </div>
+    <div id="workspace" :class="{ expanded: workspaceExpanded }">
+      <router-view />
     </div>
+    <Sidebar @collapsed="resize" />
   </div>
 </template>
 
 <script>
 import Titlebar from '@/components/Titlebar.vue';
-import Menu from '@/components/Menu.vue';
+import Sidebar from '@/components/Sidebar.vue';
 
 export default {
   name: 'app',
-  components: { Titlebar, Menu },
+  components: { Titlebar, Sidebar },
   data() {
     return {
       workspaceExpanded: false,
@@ -32,6 +30,7 @@ export default {
 
 <style lang="scss">
 @import './style/colors.scss';
+@import './style/classes.scss';
 @import './assets/fonts/fonts.css';
 
 #app {
@@ -40,7 +39,7 @@ export default {
   top: 0px;
   right: 0px;
   bottom: 0px;
-  font-family: metropolisregular, sans-serif;
+  font-family: sf_ui_textregular, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
@@ -51,19 +50,18 @@ export default {
 
 #titlebar {
   height: 32px;
-}
-
-#screen {
-  width: 100%;
-  height: calc(100% - 32px);
+  font-family: metropolisregular, sans-serif;
 }
 
 #workspace {
-  margin-left: 241px;
-  padding: 16px;
+  position: fixed;
+  left: 241px;
+  top: 32px;
+  right: 0px;
+  bottom: 0px;
   text-align: left;
   &.expanded {
-    margin-left: 41px;
+    left: 41px;
   }
 }
 </style>

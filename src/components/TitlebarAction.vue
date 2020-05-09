@@ -1,12 +1,12 @@
 <template>
-  <div class="action" @click="$emit('click')">
+  <div class="titlebar-action" @click="$emit('click')">
     <span class="mdi mdi-" :class="['mdi-' + icon, sizeClass]" />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'action',
+  name: 'titlebar-action',
   props: {
     icon: String,
     size: String,
@@ -22,7 +22,7 @@ export default {
 <style lang="scss" scoped>
 @import '../style/colors.scss';
 
-.action {
+.titlebar-action {
   font-size: 16px;
   width: 24px;
   height: 24px;

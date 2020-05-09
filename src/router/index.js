@@ -1,14 +1,33 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-
 Vue.use(VueRouter);
 
+// Import views
+import Home from '../views/Home.vue';
+import Project from '../views/Project.vue';
+
+// Store
+import store from '../store';
+
+// Define routes
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    beforeEnter: (_to, _from, next) => {
+      if (store.state.projectLoaded) {
+        next({ path: '/project' });
+      } else {
+        next({ path: '/home' });
+      }
+    },
+  },
+  {
+    path: '/home',
     component: Home,
+  },
+  {
+    path: '/project',
+    component: Project,
   },
 ];
 

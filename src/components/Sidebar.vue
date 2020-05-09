@@ -1,33 +1,37 @@
 <template>
-  <div id="menu">
-    <div id="menu-buttons">
-      <MenuButton icon="bookmark" @click="setMenu('projects')" />
-      <MenuButton icon="translate" @click="setMenu('translations')" />
+  <div id="sidebar">
+    <div id="sidebar-buttons">
+      <SidebarButton icon="bookmark" @click="setSidebarMenu('projects')" />
+      <SidebarButton icon="translate" @click="setSidebarMenu('translations')" />
+      <SidebarButton icon="cog" @click="setSidebarMenu('settings')" />
     </div>
-    <div id="menu-drawer" v-if="menu != 'none'">
+    <div id="sidebar-drawer" v-if="menu != 'none'">
       <div id="menu-projects" v-if="menu == 'projects'">
         <div class="menu-header">Projects</div>
       </div>
       <div id="menu-translations" v-if="menu == 'translations'">
         <div class="menu-header">Translations</div>
       </div>
+      <div id="menu-translations" v-if="menu == 'settings'">
+        <div class="menu-header">Settings</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import MenuButton from './MenuButton.vue';
+import SidebarButton from './SidebarButton.vue';
 
 export default {
-  name: 'menu',
-  components: { MenuButton },
+  name: 'sidebar',
+  components: { SidebarButton },
   data() {
     return {
-      menu: 'none',
+      menu: 'projects',
     };
   },
   methods: {
-    setMenu: function(menu) {
+    setSidebarMenu: function(menu) {
       if (menu === this.menu) {
         this.menu = 'none';
         this.$emit('collapsed', true);
@@ -43,20 +47,22 @@ export default {
 <style lang="scss" scoped>
 @import '../style/colors.scss';
 
-#menu {
-  float: left;
-  height: 100%;
+#sidebar {
+  position: fixed;
+  top: 32px;
+  left: 0px;
+  bottom: 0px;
   background-color: $color-bg-app;
   border-right: 1px solid $color-dark-border;
 }
 
-#menu-buttons {
+#sidebar-buttons {
   float: left;
   width: 40px;
   height: 100%;
 }
 
-#menu-drawer {
+#sidebar-drawer {
   float: left;
   width: 200px;
   height: 100%;
@@ -67,5 +73,6 @@ export default {
 .menu-header {
   padding: 8px;
   background-color: $color-bg-app;
+  border-bottom: 1px solid $color-primary;
 }
 </style>

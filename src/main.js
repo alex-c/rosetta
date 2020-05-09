@@ -9,10 +9,10 @@ Vue.config.productionTip = false;
 import '@mdi/font/css/materialdesignicons.min.css';
 
 // Load reusable components
-import Action from './components/Action.vue';
+import Button from './components/reusable/Button.vue';
 
 // Register reusable components
-Vue.component('Action', Action);
+Vue.component('Button', Button);
 
 new Vue({
   router,

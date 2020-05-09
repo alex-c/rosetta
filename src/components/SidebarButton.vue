@@ -1,12 +1,12 @@
 <template>
-  <div class="menu-button" @click="$emit('click')">
+  <div class="sidebar-button" @click="$emit('click')">
     <span class="mdi" :class="['mdi-' + icon]" />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'menu-button',
+  name: 'sidebar-button',
   props: {
     icon: String,
   },
@@ -16,7 +16,7 @@ export default {
 <style lang="scss" scoped>
 @import '../style/colors.scss';
 
-.menu-button {
+.sidebar-button {
   float: left;
   width: 40px;
   height: 40px;
