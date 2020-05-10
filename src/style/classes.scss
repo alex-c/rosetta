@@ -16,3 +16,17 @@
   text-align: center;
   color: #A0A0A0;
 }
+
+.input {
+  height: 18px;
+  padding: 6px 10px;
+  border: 1px solid $color-bg-view;
+  border-radius: 5px;
+  background-color: $color-bg-screen;
+  color: white;
+  outline: none;
+  box-shadow: 1px 1px 1px 0px $color-bg-app;
+  &:hover {
+    background-color: $color-bg-app;
+  }
+}

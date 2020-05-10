@@ -1,9 +1,9 @@
 <template>
   <div id="sidebar">
     <div id="sidebar-buttons">
-      <SidebarButton icon="bookmark" @click="setSidebarMenu('projects')" />
-      <SidebarButton icon="translate" @click="setSidebarMenu('translations')" />
-      <SidebarButton icon="cog" @click="setSidebarMenu('settings')" />
+      <SidebarButton icon="bookmark" @click="setSidebarMenu" menu="projects" :active="menu" />
+      <SidebarButton icon="translate" @click="setSidebarMenu" menu="translations" :active="menu" />
+      <SidebarButton icon="cog" @click="setSidebarMenu" menu="settings" :active="menu" />
     </div>
     <div id="sidebar-drawer" v-if="menu != 'none'">
       <div id="menu-projects" v-if="menu == 'projects'">

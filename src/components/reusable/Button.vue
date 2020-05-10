@@ -27,13 +27,11 @@ export default {
   display: inline-block;
   background-color: $color-bg-content;
   border: 1px solid $color-bg-view;
+  border-radius: 5px;
   box-shadow: 1px 1px 1px 0px $color-bg-app;
   &:hover {
     cursor: pointer;
     background-color: $color-bg-app;
-  }
-  &:active {
-    border-color: $color-primary;
   }
   & > .mdi {
     margin-right: 6px;

@@ -7,59 +7,64 @@
           <TimelineStep icon="folder-open">
             <span>Select a directory to open an i18n project:</span>
             <div class="center" style="margin-top: 8px;">
-              <Button icon="folder-open" @click="openDirectoryDialog">Select Directory</Button>
-              <input ref="directoryDialog" type="file" webkitdirectory hidden />
+              <InputGroup>
+                <input class="input" type="text" placeholder="Directory path..." v-model="directory" />
+                <Button icon="folder-open" @click="openDirectoryDialog">Select Directory</Button>
+              </InputGroup>
             </div>
           </TimelineStep>
           <TimelineStep icon="format-font">
             <span>Select an i18n format:</span>
             <div class="center" style="margin-top: 8px;">
-              <Select
-                :options="[
-                  { label: 'i18next', value: 'i18next' },
-                  { label: 'vue-i18n (Vue i18n)', value: 'vue-i18n' },
-                ]"
-                width="200px"
-              />
+              <InputGroup>
+                <Select :options="[{ label: 'i18n JSON', value: 'i18n JSON' }]" />
+              </InputGroup>
             </div>
           </TimelineStep>
           <TimelineStep icon="bookmark">
             <span>Enter a name, if you want to bookmark this project:</span>
             <div class="center" style="margin-top: 8px;">
-              <input type="text" placeholder="Project name" />
+              <InputGroup>
+                <input class="input" type="text" placeholder="Project name..." />
+              </InputGroup>
+            </div>
+          </TimelineStep>
+          <TimelineStep icon="check">
+            <div class="center">
+              <Button icon="translate">Start translating!</Button>
             </div>
           </TimelineStep>
         </TimelineWizard>
-        <!--div class="wizard-section">
-          Select a folder to open a translation project:
-          <div class="center"><Button icon="folder-open" @click="openDirectoryDialog">Select Directory</Button></div>
-          <input ref="directoryDialog" type="file" webkitdirectory hidden />
-        </div>
-        <div class="wizard-section">
-          Select an internationalization format:
-          <select>
-            <option>vue-i18n</option>
-          </select>
-        </div>
-        <div class="wizard-section">
-          If you want to bookmark this project, enter a name:
-          <input type="text" />
-        </div-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { remote } from 'electron';
+
 import TimelineWizard from '@/components/TimelineWizard.vue';
 import TimelineStep from '@/components/TimelineStep.vue';
 
 export default {
   name: 'home',
   components: { TimelineWizard, TimelineStep },
+  data() {
+    return {
+      directory: '',
+    };
+  },
   methods: {
     openDirectoryDialog: function() {
-      this.$refs.directoryDialog.click();
+      const selection = remote.dialog.showOpenDialog({
+        properties: ['openDirectory'],
+      });
+      if (selection !== undefined) {
+        this.directory = selection[0];
+      }
+    },
+    setDirectory: function(event) {
+      console.log(event);
     },
   },
 };
@@ -74,12 +79,12 @@ export default {
 }
 
 #project-wizard {
-  width: 400px;
-  height: 300px;
+  width: 600px;
+  height: 326px;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -150px 0 0 -200px;
+  margin: -150px 0 0 -300px;
   background-color: $color-bg-view;
   border-radius: 5px;
 }

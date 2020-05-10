@@ -32,7 +32,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
     },
-    icon: './public/icons/R-512.png',
+    icon: './public/icons/R-bg-512.png',
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {

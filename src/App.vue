@@ -31,7 +31,6 @@ export default {
 <style lang="scss">
 @import './style/colors.scss';
 @import './style/classes.scss';
-@import './style/defaults.scss';
 @import './assets/fonts/fonts.css';
 
 #app {

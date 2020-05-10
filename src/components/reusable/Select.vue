@@ -1,7 +1,7 @@
 <template>
-  <div class="select" :class="{ open }" @click="open = !open" :style="{ width }">
+  <div class="select" :class="{ open }" @click="open = !open">
     <div class="selected">{{ selected.label }}<span :class="['mdi', 'mdi-chevron-' + (open ? 'up' : 'down')]" /></div>
-    <div class="options" v-show="open" :style="{ width }">
+    <div class="options" v-show="open">
       <div class="option" v-for="option of options" :key="option.value" @click="select(option)">
         {{ option.label }}
       </div>
@@ -17,10 +17,6 @@ export default {
       type: Array,
       required: true,
     },
-    width: {
-      type: String,
-      required: true,
-    },
   },
   data() {
     return {
@@ -31,8 +27,7 @@ export default {
   methods: {
     select(option) {
       this.selected = option;
-
-      this.$emit('changed', option.value);
+      this.$emit('changed', option);
     },
   },
 };
@@ -46,17 +41,16 @@ export default {
   text-align: left;
   padding: 6px 10px;
   font-size: 13px;
-  background-color: $color-bg-content;
+  background-color: $color-bg-screen;
   border: 1px solid $color-bg-view;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 0px $color-bg-app;
-  &:hover,
-  &.open {
+  &:hover {
     cursor: pointer;
     background-color: $color-bg-app;
   }
-  &:active {
-    border-color: $color-primary;
+  &.open {
+    background-color: $color-bg-app;
   }
 }
 
@@ -67,10 +61,23 @@ export default {
 
 .options {
   position: absolute;
+  width: 100%;
+  top: 64px;
+  left: 24px;
+  z-index: 1000;
   background-color: $color-bg-app;
-  padding: 6px 10px;
   border: 1px solid $color-bg-view;
-  border-top: 0;
   border-radius: 0px 0px 5px 5px;
+}
+
+.option {
+  padding: 6px 10px;
+  &:last-child {
+    border-radius: 0px 0px 5px 5px;
+  }
+}
+
+.option:hover {
+  background-color: $color-bg-screen;
 }
 </style>

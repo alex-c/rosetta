@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-button" @click="$emit('click')">
+  <div class="sidebar-button" @click="$emit('click', menu)" :class="{ active: menu === active }">
     <span class="mdi" :class="['mdi-' + icon]" />
   </div>
 </template>
@@ -9,6 +9,8 @@ export default {
   name: 'sidebar-button',
   props: {
     icon: String,
+    menu: String,
+    active: String,
   },
 };
 </script>
@@ -29,6 +31,9 @@ export default {
   &:hover {
     cursor: pointer;
     background-color: $color-bg-content;
+  }
+  &.active {
+    color: $color-primary;
   }
 }
 </style>
