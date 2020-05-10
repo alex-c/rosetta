@@ -38,6 +38,7 @@ export default {
 
 .select {
   display: inline-block;
+  position: relative;
   text-align: left;
   padding: 6px 10px;
   font-size: 13px;
@@ -51,6 +52,7 @@ export default {
   }
   &.open {
     background-color: $color-bg-app;
+    border-radius: 5px 5px 0px 0px;
   }
 }
 
@@ -61,13 +63,14 @@ export default {
 
 .options {
   position: absolute;
-  width: 100%;
-  top: 64px;
-  left: 24px;
+  top: 30px;
+  left: -1px;
+  right: -1px;
   z-index: 1000;
   background-color: $color-bg-app;
   border: 1px solid $color-bg-view;
   border-radius: 0px 0px 5px 5px;
+  box-shadow: 1px 1px 1px 0px $color-bg-app;
 }
 
 .option {

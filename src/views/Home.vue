@@ -31,7 +31,7 @@
           </TimelineStep>
           <TimelineStep icon="check">
             <div class="center">
-              <Button icon="translate">Start translating!</Button>
+              <Button icon="translate" @click="loadProject">Start translating!</Button>
             </div>
           </TimelineStep>
         </TimelineWizard>
@@ -63,9 +63,7 @@ export default {
         this.directory = selection[0];
       }
     },
-    setDirectory: function(event) {
-      console.log(event);
-    },
+    loadProject: function() {},
   },
 };
 </script>
@@ -76,15 +74,13 @@ export default {
 #home {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #project-wizard {
-  width: 600px;
-  height: 326px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -150px 0 0 -300px;
+  width: 500px;
   background-color: $color-bg-view;
   border-radius: 5px;
 }

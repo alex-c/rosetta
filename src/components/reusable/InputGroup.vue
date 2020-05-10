@@ -53,12 +53,21 @@ export default {
   &:first-child {
     border-radius: 5px 0px 0px 5px;
     border-left: 1px solid $color-bg-view;
+    &.open {
+      border-radius: 5px 0px 0px 0px;
+    }
   }
   &:last-child {
     border-radius: 0px 5px 5px 0px;
+    &.open {
+      border-radius: 0px 5px 0px 0px;
+    }
   }
   &:only-child {
     border-radius: 5px;
+    &.open {
+      border-radius: 5px 5px 0px 0px;
+    }
   }
 }
 </style>
