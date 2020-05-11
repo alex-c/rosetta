@@ -17,7 +17,7 @@
             <span>Select an i18n format:</span>
             <div class="center" style="margin-top: 8px;">
               <InputGroup>
-                <Select :options="[{ label: 'i18n JSON', value: 'i18n JSON' }]" />
+                <Select :options="[{ label: 'Common i18n JSON', value: 'i18n-json' }]" v-model="format" />
               </InputGroup>
             </div>
           </TimelineStep>
@@ -25,7 +25,7 @@
             <span>Enter a name, if you want to bookmark this project:</span>
             <div class="center" style="margin-top: 8px;">
               <InputGroup>
-                <input class="input" type="text" placeholder="Project name..." />
+                <input class="input" type="text" placeholder="Project name..." v-model="bookmark" />
               </InputGroup>
             </div>
           </TimelineStep>
@@ -35,6 +35,9 @@
             </div>
           </TimelineStep>
         </TimelineWizard>
+        <div class="alert-container" v-if="error !== ''">
+          <Alert type="error" closeable @close="error = ''">{{ error }}</Alert>
+        </div>
       </div>
     </div>
   </div>
@@ -42,7 +45,6 @@
 
 <script>
 import { remote } from 'electron';
-
 import TimelineWizard from '@/components/TimelineWizard.vue';
 import TimelineStep from '@/components/TimelineStep.vue';
 
@@ -52,6 +54,9 @@ export default {
   data() {
     return {
       directory: '',
+      format: 'i18n-json',
+      bookmark: '',
+      error: '',
     };
   },
   methods: {
@@ -63,7 +68,11 @@ export default {
         this.directory = selection[0];
       }
     },
-    loadProject: function() {},
+    loadProject: function() {
+      this.$store.dispatch('loadProject', { path: this.directory, name: this.bookmark, format: this.format }).catch(error => {
+        this.error = error.message;
+      });
+    },
   },
 };
 </script>
@@ -95,5 +104,9 @@ export default {
 
 .wizard-section {
   margin: 16px;
+}
+
+.alert-container {
+  padding: 0px 8px 8px 8px;
 }
 </style>

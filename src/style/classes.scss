@@ -30,3 +30,27 @@
     background-color: $color-bg-app;
   }
 }
+
+.error {
+  color: $color-state-error;
+}
+
+.warning {
+  color: $color-state-warning;
+}
+
+.success {
+  color: $color-state-success;
+}
+
+.error-area {
+  background-color: $color-state-error;
+}
+
+.warning-area {
+  background-color: $color-state-warning;
+}
+
+.success-area {
+  background-color: $color-state-success;
+}

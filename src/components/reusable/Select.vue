@@ -1,5 +1,5 @@
 <template>
-  <div class="select" :class="{ open }" @click="open = !open">
+  <div class="select" :class="{ open }" @click="open = !open" v-bind:value="selected">
     <div class="selected">{{ selected.label }}<span :class="['mdi', 'mdi-chevron-' + (open ? 'up' : 'down')]" /></div>
     <div class="options" v-show="open">
       <div class="option" v-for="option of options" :key="option.value" @click="select(option)">
@@ -27,7 +27,7 @@ export default {
   methods: {
     select(option) {
       this.selected = option;
-      this.$emit('changed', option);
+      this.$emit('input', option);
     },
   },
 };

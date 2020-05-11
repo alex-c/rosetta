@@ -46,6 +46,7 @@ export default {
   text-align: center;
   background-color: $color-bg-screen;
   color: white;
+  text-shadow: 1px 1px 1px $color-bg-screen;
 }
 
 #titlebar {
