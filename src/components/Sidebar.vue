@@ -2,19 +2,22 @@
   <div id="sidebar">
     <div id="sidebar-buttons">
       <SidebarButton icon="bookmark" @click="setSidebarMenu" menu="projects" :active="menu" />
-      <SidebarButton icon="translate" @click="setSidebarMenu" menu="translations" :active="menu" />
+      <SidebarButton icon="translate" @click="setSidebarMenu" menu="locales" :active="menu" />
       <SidebarButton icon="cog" @click="setSidebarMenu" menu="settings" :active="menu" />
     </div>
     <div id="sidebar-drawer" v-if="menu != 'none'">
       <div id="menu-projects" v-if="menu == 'projects'">
         <div class="menu-header">Projects</div>
-        <div class="placeholder">No projects bookmarked.</div>
+        <div class="placeholder" v-if="bookmarks.length === 0">No projects bookmarked.</div>
+        <div v-else>
+          <Bookmark v-for="(bookmark, i) in bookmarks" :key="i" :project="bookmark" />
+        </div>
       </div>
-      <div id="menu-translations" v-if="menu == 'translations'">
+      <div id="menu-locales" v-if="menu == 'locales'">
         <div class="menu-header">Locales</div>
         <div class="placeholder">No project loaded.</div>
       </div>
-      <div id="menu-translations" v-if="menu == 'settings'">
+      <div id="menu-settings" v-if="menu == 'settings'">
         <div class="menu-header">Settings</div>
       </div>
     </div>
@@ -23,14 +26,20 @@
 
 <script>
 import SidebarButton from './SidebarButton.vue';
+import Bookmark from './Bookmark.vue';
 
 export default {
   name: 'sidebar',
-  components: { SidebarButton },
+  components: { SidebarButton, Bookmark },
   data() {
     return {
       menu: 'projects',
     };
+  },
+  computed: {
+    bookmarks: function() {
+      return this.$store.state.bookmarks;
+    },
   },
   methods: {
     setSidebarMenu: function(menu) {

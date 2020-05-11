@@ -7,7 +7,9 @@ const fs = require('fs').promises;
 const path = require('path');
 
 // Load bookmarks from storage
-const bookmarks = localStorage.getItem('bookmarks') || [];
+localStorage.removeItem('bookmarks');
+const temp = localStorage.getItem('bookmarks');
+const bookmarks = temp === null ? [] : JSON.parse(temp);
 
 // Initialize store
 export default new Vuex.Store({
@@ -19,8 +21,15 @@ export default new Vuex.Store({
   },
   mutations: {
     bookmarkProject(state, project) {
-      state.bookmarks.push({ name: project.name, path: project.path });
-      localStorage.setItem('bookmarks', state.bookmarks);
+      state.bookmarks.push({ name: project.name, path: project.path, format: project.format });
+      localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+    },
+    removeBookmark(state, projectName) {
+      state.bookmarks.splice(
+        state.bookmarks.findIndex(b => b.name == projectName),
+        1,
+      );
+      localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
     },
     projectLoaded(state, project) {
       state.projectLoaded = true;
@@ -35,6 +44,9 @@ export default new Vuex.Store({
       }
       if (project.format === '') {
         throw new Error('No i18n format provided.');
+      }
+      if (project.name !== '' && state.bookmarks.findIndex(b => b.name === project.name) !== -1) {
+        throw new Error('That bookmark name is already taken.');
       }
 
       // Read files
