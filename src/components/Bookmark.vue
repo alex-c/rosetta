@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     loadProject: function() {
-      this.$store.dispatch('loadProject', { path: this.project.directory, format: this.project.format, name: '' }).catch(error => {
+      this.$store.dispatch('loadProject', { path: this.project.path, format: this.project.format, name: '' }).catch(error => {
         this.error = error.message;
       });
     },

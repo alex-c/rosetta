@@ -65,5 +65,6 @@ export default {
   &.expanded {
     left: 41px;
   }
+  overflow: auto;
 }
 </style>

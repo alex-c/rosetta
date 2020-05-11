@@ -1,0 +1,12 @@
+{
+  "key1": "Wert 1",
+  "obj1": {
+    "key1": "Test",
+    "objNested": {
+      "key1": "Wert 1",
+      "key2": "Hallo",
+      "key3": "Welt"
+    },
+    "butterfly": "Schmetterling"
+  }
+}

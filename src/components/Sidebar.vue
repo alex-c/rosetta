@@ -10,12 +10,15 @@
         <div class="menu-header">Projects</div>
         <div class="placeholder" v-if="bookmarks.length === 0">No projects bookmarked.</div>
         <div v-else>
-          <Bookmark v-for="(bookmark, i) in bookmarks" :key="i" :project="bookmark" />
+          <Bookmark v-for="bookmark in bookmarks" :key="bookmark.name" :project="bookmark" />
         </div>
       </div>
       <div id="menu-locales" v-if="menu == 'locales'">
         <div class="menu-header">Locales</div>
-        <div class="placeholder">No project loaded.</div>
+        <div class="placeholder" v-if="!projectLoaded">No project loaded.</div>
+        <div v-else>
+          <Locale v-for="locale in locales" :key="locale.name" :locale="locale" />
+        </div>
       </div>
       <div id="menu-settings" v-if="menu == 'settings'">
         <div class="menu-header">Settings</div>
@@ -27,18 +30,25 @@
 <script>
 import SidebarButton from './SidebarButton.vue';
 import Bookmark from './Bookmark.vue';
+import Locale from './Locale.vue';
 
 export default {
   name: 'sidebar',
-  components: { SidebarButton, Bookmark },
+  components: { SidebarButton, Bookmark, Locale },
   data() {
     return {
       menu: 'projects',
     };
   },
   computed: {
+    projectLoaded: function() {
+      return this.$store.state.projectLoaded;
+    },
     bookmarks: function() {
       return this.$store.state.bookmarks;
+    },
+    locales: function() {
+      return this.$store.state.locales;
     },
   },
   methods: {

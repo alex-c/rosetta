@@ -69,9 +69,14 @@ export default {
       }
     },
     loadProject: function() {
-      this.$store.dispatch('loadProject', { path: this.directory, name: this.bookmark, format: this.format }).catch(error => {
-        this.error = error.message;
-      });
+      this.$store
+        .dispatch('loadProject', { path: this.directory, name: this.bookmark, format: this.format })
+        .then(() => {
+          this.$router.push({ path: 'project' });
+        })
+        .catch(error => {
+          this.error = error.message;
+        });
     },
   },
 };

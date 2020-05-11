@@ -1,0 +1,15 @@
+{
+  "key1": "value1",
+  "obj1": {
+    "key1": "test",
+    "objNested": {
+      "key1": "value1",
+      "key2": "hello",
+      "key3": "world"
+    }
+  },
+  "obj2": {
+    "key1": "value1"
+  },
+  "anotherKey": "hello word"
+}
