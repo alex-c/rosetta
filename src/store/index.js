@@ -16,7 +16,7 @@ const bookmarks = temp === null ? [] : JSON.parse(temp);
 // Initialize store
 export default new Vuex.Store({
   state: {
-    menu: 'projects',
+    menu: 'bookmarks',
     bookmarks: bookmarks,
     projectLoaded: false,
     project: null,

@@ -1,16 +1,40 @@
 <template>
   <div id="sidebar">
     <div id="sidebar-buttons">
-      <SidebarButton icon="bookmark" @click="setSidebarMenu" menu="projects" :active="menu" />
+      <SidebarButton icon="bookmark" @click="setSidebarMenu" menu="bookmarks" :active="menu" />
+      <SidebarButton icon="folder-edit" @click="setSidebarMenu" menu="project" :active="menu" />
       <SidebarButton icon="translate" @click="setSidebarMenu" menu="locales" :active="menu" />
       <SidebarButton icon="cog" @click="setSidebarMenu" menu="settings" :active="menu" />
     </div>
     <div id="sidebar-drawer" v-if="menu != 'none'">
-      <div id="menu-projects" v-if="menu == 'projects'">
-        <div class="menu-header">Projects</div>
+      <div id="menu-bookmarks" v-if="menu == 'bookmarks'">
+        <div class="menu-header">Project Bookmarks</div>
         <div class="placeholder" v-if="bookmarks.length === 0">No projects bookmarked.</div>
         <div v-else>
           <Bookmark v-for="bookmark in bookmarks" :key="bookmark.name" :project="bookmark" />
+        </div>
+      </div>
+      <div id="menu-project" v-if="menu == 'project'">
+        <div class="menu-header">Current Project</div>
+        <div class="placeholder" v-if="!projectLoaded">No project loaded.</div>
+        <div v-else>
+          <div class="menu-container">
+            <span v-if="project.name !== ''">Name: {{ project.name }}<br /></span>
+            <span>Format: {{ project.format }}</span
+            ><br />
+            <span>Locales: {{ localeCount }}</span
+            ><br />
+            <span>Path:</span>
+            <div id="project-path">
+              {{ project.path }}
+            </div>
+          </div>
+          <div class="menu-container">
+            <InputGroup>
+              <Button class="menu-button" type="success" icon="content-save">Save</Button>
+              <Button class="menu-button" type="error" icon="close">Close</Button>
+            </InputGroup>
+          </div>
         </div>
       </div>
       <div id="menu-locales" v-if="menu == 'locales'">
@@ -18,8 +42,10 @@
         <div class="placeholder" v-if="!projectLoaded">No project loaded.</div>
         <div v-else>
           <Locale v-for="locale in locales" :key="locale.name" :locale="locale" />
-          <div id="new-locale-container">
-            <Button icon="plus">New Locale</Button>
+          <div class="menu-container">
+            <InputGroup>
+              <Button icon="plus" class="menu-button">New Locale</Button>
+            </InputGroup>
           </div>
         </div>
       </div>
@@ -45,21 +71,31 @@ export default {
     projectLoaded: function() {
       return this.$store.state.projectLoaded;
     },
+    project: function() {
+      return this.$store.state.project;
+    },
     bookmarks: function() {
       return this.$store.state.bookmarks;
     },
     locales: function() {
       return this.$store.state.locales;
     },
+    localeCount: function() {
+      let localeCount = 0;
+      for (const locale in this.locales) {
+        if (this.locales[locale].state !== 'error') {
+          localeCount++;
+        }
+      }
+      return localeCount;
+    },
   },
   methods: {
     setSidebarMenu: function(menu) {
       if (menu === this.menu) {
         this.$store.commit('setMenu', 'none');
-        //this.$emit('collapsed', true);
       } else {
         this.$store.commit('setMenu', menu);
-        //this.$emit('collapsed', false);
       }
     },
   },
@@ -102,10 +138,20 @@ export default {
   padding: 16px;
 }
 
-#new-locale-container {
-  padding: 0px 8px;
-  & > div {
-    width: calc(100% - 22px);
-  }
+.menu-container {
+  margin: 8px;
+}
+
+.menu-button {
+  flex-grow: 1;
+}
+
+#project-path {
+  background-color: $color-bg-app;
+  padding: 2px 4px;
+  margin: 4px 0px;
+  border-radius: 2px;
+  font-family: inconsolatamedium, monospace;
+  font-size: 12px;
 }
 </style>

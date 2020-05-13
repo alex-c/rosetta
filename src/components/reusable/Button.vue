@@ -1,5 +1,5 @@
 <template>
-  <div :class="['button', sizeClass]" @click="$emit('click')">
+  <div :class="['button', sizeClass, typeClass]" @click="$emit('click')">
     <span v-if="icon !== undefined" class="mdi" :class="'mdi-' + icon" />
     <slot />
   </div>
@@ -11,10 +11,12 @@ export default {
   props: {
     icon: String,
     size: String,
+    type: String,
   },
   data() {
     return {
-      sizeClass: this.size !== undefined ? this.size : 'regular',
+      sizeClass: this.size !== undefined ? this.size : 'regular-size',
+      typeClass: this.type !== undefined ? this.type + '-area' : 'regular-type',
     };
   },
 };
@@ -25,21 +27,26 @@ export default {
 
 .button {
   display: inline-block;
-  background-color: $color-bg-content;
   border: 1px solid $color-bg-view;
   border-radius: 5px;
   box-shadow: 1px 1px 1px 0px $color-bg-app;
   &:hover {
     cursor: pointer;
-    background-color: $color-bg-app;
   }
   & > .mdi {
     margin-right: 6px;
   }
-  &.regular {
+  &.regular-size {
     padding: 6px 10px;
     border-radius: 5px;
     font-size: 13px;
+  }
+  &.regular-type {
+    background-color: $color-bg-content;
+    &:hover {
+      cursor: pointer;
+      background-color: $color-bg-app;
+    }
   }
   &.small {
     padding: 3px 5px;
