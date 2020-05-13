@@ -35,12 +35,10 @@ import Locale from './Locale.vue';
 export default {
   name: 'sidebar',
   components: { SidebarButton, Bookmark, Locale },
-  data() {
-    return {
-      menu: 'projects',
-    };
-  },
   computed: {
+    menu: function() {
+      return this.$store.state.menu;
+    },
     projectLoaded: function() {
       return this.$store.state.projectLoaded;
     },
@@ -54,11 +52,11 @@ export default {
   methods: {
     setSidebarMenu: function(menu) {
       if (menu === this.menu) {
-        this.menu = 'none';
-        this.$emit('collapsed', true);
+        this.$store.commit('setMenu', 'none');
+        //this.$emit('collapsed', true);
       } else {
-        this.menu = menu;
-        this.$emit('collapsed', false);
+        this.$store.commit('setMenu', menu);
+        //this.$emit('collapsed', false);
       }
     },
   },

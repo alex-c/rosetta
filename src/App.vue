@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <Titlebar />
-    <div id="workspace" :class="{ expanded: workspaceExpanded }">
+    <div id="workspace" :class="{ expanded: menu === 'none' }">
       <router-view />
     </div>
-    <Sidebar @collapsed="resize" />
+    <Sidebar />
   </div>
 </template>
 
@@ -15,14 +15,9 @@ import Sidebar from '@/components/Sidebar.vue';
 export default {
   name: 'app',
   components: { Titlebar, Sidebar },
-  data() {
-    return {
-      workspaceExpanded: false,
-    };
-  },
-  methods: {
-    resize: function(collapsed) {
-      this.workspaceExpanded = collapsed;
+  computed: {
+    menu: function() {
+      return this.$store.state.menu;
     },
   },
 };

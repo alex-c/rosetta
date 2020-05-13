@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     locales() {
-      return this.$store.getters.validLocales;
+      return this.$store.getters.editedLocales;
     },
     keys() {
       return this.$store.getters.filteredKeys(this.filter);
@@ -93,6 +93,8 @@ export default {
   outline: none;
   background-color: $color-bg-screen;
   color: white;
+  font-family: inconsolatamedium, monospace;
+  font-size: 13px;
 }
 
 #locales {

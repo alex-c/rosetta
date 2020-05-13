@@ -6,52 +6,17 @@ Vue.use(Vuex);
 const fs = require('fs').promises;
 const path = require('path');
 
+// JSON utils
+import JsonUtils from './JsonUtils.js';
+
 // Load bookmarks from storage
 const temp = localStorage.getItem('bookmarks');
 const bookmarks = temp === null ? [] : JSON.parse(temp);
 
-// From: https://stackoverflow.com/questions/19098797/fastest-way-to-flatten-un-flatten-nested-json-objects
-function flatten(data) {
-  var result = {};
-  function recurse(cur, prop) {
-    if (Object(cur) !== cur) {
-      result[prop] = cur;
-    } else if (Array.isArray(cur)) {
-      for (var i = 0, l = cur.length; i < l; i++) recurse(cur[i], prop + '[' + i + ']');
-      if (l == 0) result[prop] = [];
-    } else {
-      var isEmpty = true;
-      for (var p in cur) {
-        isEmpty = false;
-        recurse(cur[p], prop ? prop + '.' + p : p);
-      }
-      if (isEmpty && prop) result[prop] = {};
-    }
-  }
-  recurse(data, '');
-  return result;
-}
-function unflatten(data) {
-  'use strict';
-  if (Object(data) !== data || Array.isArray(data)) return data;
-  var regex = /\.?([^.\[\]]+)|\[(\d+)\]/g,
-    resultholder = {};
-  for (var p in data) {
-    var cur = resultholder,
-      prop = '',
-      m;
-    while ((m = regex.exec(p))) {
-      cur = cur[prop] || (cur[prop] = m[2] ? [] : {});
-      prop = m[2] || m[1];
-    }
-    cur[prop] = data[p];
-  }
-  return resultholder[''] || resultholder;
-}
-
 // Initialize store
 export default new Vuex.Store({
   state: {
+    menu: 'projects',
     bookmarks: bookmarks,
     projectLoaded: false,
     project: null,
@@ -68,11 +33,23 @@ export default new Vuex.Store({
       }
       return locales;
     },
+    editedLocales: state => {
+      const locales = {};
+      for (let locale in state.locales) {
+        if (state.locales[locale].editing) {
+          locales[locale] = state.locales[locale];
+        }
+      }
+      return locales;
+    },
     filteredKeys: state => filter => {
       return state.keys.filter(k => k.startsWith(filter));
     },
   },
   mutations: {
+    setMenu(state, menu) {
+      state.menu = menu;
+    },
     bookmarkProject(state, project) {
       state.bookmarks.push({ name: project.name, path: project.path, format: project.format });
       localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
@@ -84,11 +61,21 @@ export default new Vuex.Store({
       );
       localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
     },
-    projectLoaded(state, data) {
+    loadProject(state, data) {
       state.projectLoaded = true;
       state.project = data.project;
       state.locales = data.locales;
       state.keys = data.keys;
+    },
+    editLocale(state, locale) {
+      if (state.locales[locale.name] !== undefined) {
+        state.locales[locale.name].editing = true;
+      }
+    },
+    hideLocale(state, locale) {
+      if (state.locales[locale.name] !== undefined) {
+        state.locales[locale.name].editing = false;
+      }
     },
   },
   actions: {
@@ -123,13 +110,14 @@ export default new Vuex.Store({
       // Parse locales
       for (let locale in locales) {
         try {
-          locales[locale].translations = flatten(JSON.parse(locales[locale].source));
+          locales[locale].translations = JsonUtils.flatten(JSON.parse(locales[locale].source));
           locales[locale].state = 'none';
+          locales[locale].editing = false;
         } catch (error) {
           locales[locale].translations = null;
           locales[locale].state = 'error';
           locales[locale].message = `Failed parsing file '${locales[locale].fileName}': ` + error.message;
-          console.error(error);
+          console.warn(error);
         }
       }
 
@@ -160,7 +148,7 @@ export default new Vuex.Store({
       if (project.name !== '') {
         commit('bookmarkProject', project);
       }
-      commit('projectLoaded', { project, locales, keys });
+      commit('loadProject', { project, locales, keys });
     },
   },
   modules: {},

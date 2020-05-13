@@ -1,6 +1,9 @@
 <template>
   <div :class="['locale', locale.state + '-area']" @click="expanded = !expanded">
-    <span class="mdi mdi-pencil edit-control" @click.stop="editLocale" v-if="locale.state !== 'error'" />
+    <span v-if="locale.state !== 'error'">
+      <span class="mdi mdi-pencil-off-outline edit-control" @click.stop="hideLocale" v-if="locale.editing" />
+      <span class="mdi mdi-pencil edit-control" @click.stop="editLocale" v-else />
+    </span>
     <span class="mdi mdi-alert" v-else />
     {{ locale.name }}
     <div class="locale-details" v-show="expanded">
@@ -19,7 +22,12 @@ export default {
     };
   },
   methods: {
-    editLocale: function() {},
+    editLocale: function() {
+      this.$store.commit('editLocale', this.locale);
+    },
+    hideLocale: function() {
+      this.$store.commit('hideLocale', this.locale);
+    },
   },
 };
 </script>
