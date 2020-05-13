@@ -18,6 +18,9 @@
         <div class="placeholder" v-if="!projectLoaded">No project loaded.</div>
         <div v-else>
           <Locale v-for="locale in locales" :key="locale.name" :locale="locale" />
+          <div id="new-locale-container">
+            <Button icon="plus">New Locale</Button>
+          </div>
         </div>
       </div>
       <div id="menu-settings" v-if="menu == 'settings'">
@@ -97,5 +100,12 @@ export default {
 
 .placeholder {
   padding: 16px;
+}
+
+#new-locale-container {
+  padding: 0px 8px;
+  & > div {
+    width: calc(100% - 22px);
+  }
 }
 </style>

@@ -111,7 +111,6 @@ export default new Vuex.Store({
       for (let locale in locales) {
         try {
           locales[locale].translations = JsonUtils.flatten(JSON.parse(locales[locale].source));
-          locales[locale].state = 'none';
           locales[locale].editing = false;
         } catch (error) {
           locales[locale].translations = null;
@@ -133,14 +132,20 @@ export default new Vuex.Store({
         }
       }
 
-      // Add empty string to all missing translations
+      // Add empty string to all missing translations and count translations
       for (let locale in locales) {
         if (locales[locale].state !== 'error') {
+          let translationCount = 0;
           for (let key of keys) {
-            if (locales[locale].translations.key === undefined) {
-              locales[locale].translations.key = '';
+            if (locales[locale].translations[key] === undefined) {
+              locales[locale].translations[key] = '';
+            }
+            if (locales[locale].translations[key] !== '') {
+              translationCount++;
             }
           }
+          locales[locale].translationCount = translationCount;
+          locales[locale].state = translationCount === keys.length ? 'success' : 'warning';
         }
       }
 
@@ -149,6 +154,7 @@ export default new Vuex.Store({
         commit('bookmarkProject', project);
       }
       commit('loadProject', { project, locales, keys });
+      commit('setMenu', 'locales');
     },
   },
   modules: {},

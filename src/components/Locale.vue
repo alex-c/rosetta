@@ -7,7 +7,8 @@
     <span class="mdi mdi-alert" v-else />
     {{ locale.name }}
     <div class="locale-details" v-show="expanded">
-      <div class="locale-message" v-if="locale.message !== undefined">{{ locale.message }}</div>
+      <div class="locale-message" v-if="locale.state === 'error'">{{ locale.message }}</div>
+      <div class="locale-message" v-else>{{ locale.translationCount }} / {{ keyCount }} translations</div>
     </div>
   </div>
 </template>
@@ -20,6 +21,11 @@ export default {
     return {
       expanded: false,
     };
+  },
+  computed: {
+    keyCount: function() {
+      return this.$store.state.keys.length;
+    },
   },
   methods: {
     editLocale: function() {
