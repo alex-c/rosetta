@@ -14,7 +14,7 @@ const ModalPlugin = {
         },
       });
       instance.$mount();
-      this.$el.appendChild(instance.$el);
+      this.$root.$el.appendChild(instance.$el);
     };
     Vue.prototype.$confirm = function(props, callback) {
       const instance = new ModalClass({
@@ -26,7 +26,7 @@ const ModalPlugin = {
         },
       });
       instance.$mount();
-      this.$el.appendChild(instance.$el);
+      this.$root.$el.appendChild(instance.$el);
     };
   },
 };

@@ -100,6 +100,27 @@ export default new Vuex.Store({
         };
       }
     },
+    addKey(state, key) {
+      if (!state.keys.includes(key)) {
+        for (let locale in state.locales) {
+          if (state.locales[locale].state !== 'error') {
+            state.locales[locale].translations[key] = '';
+          }
+        }
+        state.keys.push(key);
+      }
+    },
+    removeKey(state, key) {
+      const keyIndex = state.keys.indexOf(key);
+      if (keyIndex !== -1) {
+        state.keys.splice(state.keys.indexOf(key), 1);
+        for (let locale in state.locales) {
+          if (state.locales[locale].state !== 'error') {
+            delete state.locales[locale].translations[key];
+          }
+        }
+      }
+    },
   },
   actions: {
     async loadProject({ commit, state }, project) {

@@ -4,7 +4,7 @@
       <div id="control">
         <div id="control-header">
           Keys
-          <span class="mdi mdi-plus" />
+          <span class="mdi mdi-plus" @click="addKey" />
         </div>
         <input id="filter" type="text" placeholder="Filter..." v-model="filter" />
       </div>
@@ -12,7 +12,7 @@
         <div v-for="locale in locales" :key="locale.name" class="locale">{{ locale.name }}</div>
       </div>
       <div id="keys" ref="keys">
-        <div v-for="key in keys" :key="key" class="key">{{ key }}</div>
+        <Key v-for="key in keys" :key="key" :tKey="key" />
       </div>
       <div id="translations" @scroll="scroll">
         <div v-for="locale in locales" :key="locale.name" class="locale-translations">
@@ -24,8 +24,11 @@
 </template>
 
 <script>
+import Key from '@/components/Key.vue';
+
 export default {
   name: 'project',
+  components: { Key },
   data() {
     return {
       filter: '',
@@ -40,6 +43,11 @@ export default {
     },
   },
   methods: {
+    addKey: function() {
+      this.$prompt({ title: 'New Key', message: 'Enter a new key:' }, newKey => {
+        this.$store.commit('addKey', newKey);
+      });
+    },
     scroll: function(event) {
       this.$refs['locales'].scrollLeft = event.target.scrollLeft;
       this.$refs['keys'].scrollTop = event.target.scrollTop;
@@ -124,15 +132,6 @@ export default {
   font-family: inconsolatamedium, monospace;
   font-size: 13px;
   text-shadow: none;
-}
-
-.key {
-  height: 14px;
-  padding: 4px;
-  border-bottom: 1px solid $color-bg-app;
-  &:last-child {
-    border-bottom: none;
-  }
 }
 
 #translations {

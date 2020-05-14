@@ -18,9 +18,10 @@ export default {
 @import '@/style/colors.scss';
 
 .box {
-  background-color: $color-bg-view;
-  border-radius: 5px;
   text-align: left;
+  background-color: $color-bg-view;
+  border: 1px solid $color-dark-border;
+  border-radius: 5px;
 }
 
 .box-title {

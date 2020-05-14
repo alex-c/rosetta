@@ -4,7 +4,7 @@
       <div class="modal-inner">
         {{ message }}
         <div class="prompt" v-if="type == 'prompt'">
-          <input class="input" placeholder="Locale name..." v-model="value" />
+          <input class="input" placeholder="" v-model="value" />
         </div>
         <div class="modal-buttons">
           <Button type="success" @click="confirm">Ok</Button>
