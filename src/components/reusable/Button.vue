@@ -13,11 +13,13 @@ export default {
     size: String,
     type: String,
   },
-  data() {
-    return {
-      sizeClass: this.size !== undefined ? this.size : 'regular-size',
-      typeClass: this.type !== undefined ? this.type + '-area' : 'regular-type',
-    };
+  computed: {
+    sizeClass() {
+      return this.size !== undefined ? this.size : 'regular-size';
+    },
+    typeClass() {
+      return this.type !== undefined ? this.type + '-area' : 'regular-type';
+    },
   },
 };
 </script>
