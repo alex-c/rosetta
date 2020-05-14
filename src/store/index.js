@@ -83,6 +83,23 @@ export default new Vuex.Store({
         state.locales[locale.name].editing = false;
       }
     },
+    addLocale(state, localeName) {
+      if (state.locales[localeName] === undefined) {
+        const locale = {};
+        locale.name = localeName;
+        locale.translations = {};
+        for (let key of state.keys) {
+          locale.translations[key] = '';
+        }
+        locale.translationCount = 0;
+        locale.state = 'warning';
+        locale.editing = false;
+        state.locales = {
+          ...state.locales,
+          [localeName]: locale,
+        };
+      }
+    },
   },
   actions: {
     async loadProject({ commit, state }, project) {

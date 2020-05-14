@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <Box title="Welcome to Rosetta!">
+    <Box title="Welcome to Rosetta!" width="500px">
       <TimelineWizard>
         <TimelineStep icon="folder-open">
           <span>Select a directory to open an i18n project:</span>

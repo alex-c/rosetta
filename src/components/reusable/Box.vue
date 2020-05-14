@@ -1,6 +1,6 @@
 <template>
-  <div class="box">
-    <div class="box-title">{{title}}</div>
+  <div class="box" :style="{ width }">
+    <div class="box-title" v-if="title !== undefined">{{ title }}</div>
     <div class="box-body">
       <slot />
     </div>
@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'box',
-  props: ['title'],
+  props: ['title', 'width'],
 };
 </script>
 
@@ -18,9 +18,9 @@ export default {
 @import '@/style/colors.scss';
 
 .box {
-  width: 500px;
   background-color: $color-bg-view;
   border-radius: 5px;
+  text-align: left;
 }
 
 .box-title {

@@ -1,25 +1,51 @@
 <template>
-  <div class="modal-container" @click="close()">
-    <div class="modal">
-      {{ message }}
-      <div class="prompt" v-if="type == 'prompt'">
-        <input class="input" placeholder="Locale name..." />
+  <div class="modal-container" @click.self="close()">
+    <Box :style="{ width }" :title="titleProp">
+      <div class="modal-inner">
+        {{ message }}
+        <div class="prompt" v-if="type == 'prompt'">
+          <input class="input" placeholder="Locale name..." v-model="value" />
+        </div>
+        <div class="modal-buttons">
+          <Button type="success" @click="confirm">Ok</Button>
+          <Button @click="close">Cancel</Button>
+        </div>
       </div>
-      <InputGroup style="float:right;">
-        <Button type="success">Ok</Button>
-      </InputGroup>
-    </div>
+    </Box>
   </div>
 </template>
 
 <script>
 export default {
   name: 'modal',
-  props: ['type', 'message', 'callback'],
+  props: ['type', 'title', 'message', 'callback', 'width'],
+  data() {
+    return {
+      value: '',
+    };
+  },
+  computed: {
+    widthStyle() {
+      return this.width === undefined ? 'auto' : this.width;
+    },
+    titleProp() {
+      return this.title;
+    },
+  },
   methods: {
     close: function() {
       this.$destroy();
       this.$el.parentNode.removeChild(this.$el);
+    },
+    confirm: function() {
+      if (this.callback !== undefined && typeof this.callback === 'function') {
+        if (this.type === 'confirm') {
+          this.callback();
+        } else if (this.type === 'prompt') {
+          this.callback(this.value);
+        }
+      }
+      this.close();
     },
   },
 };
@@ -40,10 +66,24 @@ export default {
   background-color: rgba(40, 40, 40, 0.8);
 }
 
-.modal {
+.modal-inner {
   padding: 16px;
-  border-radius: 5px;
-  background-color: $color-bg-view;
-  box-shadow: 1px 1px 1px 0px $color-dark-border;
+}
+
+.prompt {
+  margin-top: 8px;
+  display: flex;
+  & > input {
+    flex-grow: 1;
+  }
+}
+
+.modal-buttons {
+  margin-top: 8px;
+  overflow: auto;
+  & > div {
+    float: right;
+    margin-left: 8px;
+  }
 }
 </style>

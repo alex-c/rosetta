@@ -102,6 +102,7 @@ export default {
     saveProject: function() {
       // TODO - save project
       console.warn("TODO: implement 'save project'.");
+      this.$modal({ title: 'test' }, `<Button>lol</Button>`);
     },
     closeProject: function() {
       this.$router.push({ path: 'home' });
@@ -109,8 +110,10 @@ export default {
       this.$store.commit('closeProject');
     },
     addLocale: function() {
-      this.$modal({ type: 'prompt', message: 'Please enter a new locale name:' }, function(value) {
-        alert(value);
+      this.$prompt({ title: 'New Locale', message: 'Please enter a new locale name:' }, localeName => {
+        if (localeName !== '') {
+          this.$store.commit('addLocale', localeName);
+        }
       });
     },
   },
