@@ -1,45 +1,42 @@
 <template>
   <div id="home">
-    <div id="project-wizard">
-      <div id="wizard-title">Welcome to Rosetta!</div>
-      <div id="wizard-body">
-        <TimelineWizard>
-          <TimelineStep icon="folder-open">
-            <span>Select a directory to open an i18n project:</span>
-            <div class="center" style="margin-top: 8px;">
-              <InputGroup>
-                <input class="input" type="text" placeholder="Directory path..." v-model="directory" />
-                <Button icon="folder-open" @click="openDirectoryDialog">Select Directory</Button>
-              </InputGroup>
-            </div>
-          </TimelineStep>
-          <TimelineStep icon="format-font">
-            <span>Select an i18n format:</span>
-            <div class="center" style="margin-top: 8px;">
-              <InputGroup>
-                <Select :options="[{ label: 'Common i18n JSON', value: 'i18n-json' }]" v-model="format" />
-              </InputGroup>
-            </div>
-          </TimelineStep>
-          <TimelineStep icon="bookmark">
-            <span>Enter a name, if you want to bookmark this project:</span>
-            <div class="center" style="margin-top: 8px;">
-              <InputGroup>
-                <input class="input" type="text" placeholder="Project name..." v-model="bookmark" />
-              </InputGroup>
-            </div>
-          </TimelineStep>
-          <TimelineStep icon="check">
-            <div class="center">
-              <Button icon="translate" @click="loadProject">Start translating!</Button>
-            </div>
-          </TimelineStep>
-        </TimelineWizard>
-        <div class="alert-container" v-if="error !== ''">
-          <Alert type="error" closeable @close="error = ''">{{ error }}</Alert>
-        </div>
+    <Box title="Welcome to Rosetta!">
+      <TimelineWizard>
+        <TimelineStep icon="folder-open">
+          <span>Select a directory to open an i18n project:</span>
+          <div class="center" style="margin-top: 8px;">
+            <InputGroup>
+              <input class="input" type="text" placeholder="Directory path..." v-model="directory" />
+              <Button icon="folder-open" @click="openDirectoryDialog">Select Directory</Button>
+            </InputGroup>
+          </div>
+        </TimelineStep>
+        <TimelineStep icon="format-font">
+          <span>Select an i18n format:</span>
+          <div class="center" style="margin-top: 8px;">
+            <InputGroup>
+              <Select :options="[{ label: 'Common i18n JSON', value: 'i18n-json' }]" v-model="format" />
+            </InputGroup>
+          </div>
+        </TimelineStep>
+        <TimelineStep icon="bookmark">
+          <span>Enter a name, if you want to bookmark this project:</span>
+          <div class="center" style="margin-top: 8px;">
+            <InputGroup>
+              <input class="input" type="text" placeholder="Project name..." v-model="bookmark" />
+            </InputGroup>
+          </div>
+        </TimelineStep>
+        <TimelineStep icon="check">
+          <div class="center">
+            <Button icon="translate" @click="loadProject">Start translating!</Button>
+          </div>
+        </TimelineStep>
+      </TimelineWizard>
+      <div class="alert-container" v-if="error !== ''">
+        <Alert type="error" closeable @close="error = ''">{{ error }}</Alert>
       </div>
-    </div>
+    </Box>
   </div>
 </template>
 

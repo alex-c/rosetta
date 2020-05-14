@@ -3,9 +3,7 @@
     <span class="mdi mdi-application-import load-project" @click.stop="loadProject" />
     {{ project.name }}
     <div class="bookmark-details" v-show="expanded">
-      <div class="bookmark-path">
-        {{ project.path }}
-      </div>
+      <div class="bookmark-path">{{ project.path }}</div>
       <span class="mdi mdi-close remove-bookmark" @click.stop="removeBookmark" />
       {{ project.format }}
     </div>
@@ -21,11 +19,28 @@ export default {
       expanded: false,
     };
   },
+  computed: {
+    projectLoaded() {
+      return this.$store.state.projectLoaded;
+    },
+  },
   methods: {
+    attemptLoadProject: function() {
+      if (this.projectLoaded) {
+        //this.$confirm()
+      } else {
+        this.loadProject();
+      }
+    },
     loadProject: function() {
-      this.$store.dispatch('loadProject', { path: this.project.path, format: this.project.format, name: '' }).catch(error => {
-        this.error = error.message;
-      });
+      this.$store
+        .dispatch('loadProject', { path: this.project.path, format: this.project.format, name: '' })
+        .then(() => {
+          this.$router.push('/project');
+        })
+        .catch(error => {
+          this.error = error.message;
+        });
     },
     removeBookmark: function() {
       this.$store.commit('removeBookmark', this.project.name);

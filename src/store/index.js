@@ -67,6 +67,12 @@ export default new Vuex.Store({
       state.locales = data.locales;
       state.keys = data.keys;
     },
+    closeProject(state) {
+      state.projectLoaded = false;
+      state.keys = [];
+      state.locales = null;
+      state.project = null;
+    },
     editLocale(state, locale) {
       if (state.locales[locale.name] !== undefined) {
         state.locales[locale.name].editing = true;

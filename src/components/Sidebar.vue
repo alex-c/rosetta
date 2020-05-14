@@ -19,20 +19,21 @@
         <div class="placeholder" v-if="!projectLoaded">No project loaded.</div>
         <div v-else>
           <div class="menu-container">
-            <span v-if="project.name !== ''">Name: {{ project.name }}<br /></span>
-            <span>Format: {{ project.format }}</span
-            ><br />
-            <span>Locales: {{ localeCount }}</span
-            ><br />
+            <span v-if="project.name !== ''">
+              Name: {{ project.name }}
+              <br />
+            </span>
+            <span>Format: {{ project.format }}</span>
+            <br />
+            <span>Locales: {{ localeCount }}</span>
+            <br />
             <span>Path:</span>
-            <div id="project-path">
-              {{ project.path }}
-            </div>
+            <div id="project-path">{{ project.path }}</div>
           </div>
           <div class="menu-container">
             <InputGroup>
-              <Button class="menu-button" type="success" icon="content-save">Save</Button>
-              <Button class="menu-button" type="error" icon="close">Close</Button>
+              <Button class="menu-button" type="success" icon="content-save" @click="saveProject">Save</Button>
+              <Button class="menu-button" type="error" icon="close" @click="closeProject">Close</Button>
             </InputGroup>
           </div>
         </div>
@@ -97,6 +98,15 @@ export default {
       } else {
         this.$store.commit('setMenu', menu);
       }
+    },
+    saveProject: function() {
+      // TODO - save project
+      console.warn("TODO: implement 'save project'.");
+    },
+    closeProject: function() {
+      this.$router.push({ path: 'home' });
+      this.$store.commit('setMenu', 'bookmarks');
+      this.$store.commit('closeProject');
     },
     addLocale: function() {
       this.$modal({ type: 'prompt', message: 'Please enter a new locale name:' }, function(value) {
