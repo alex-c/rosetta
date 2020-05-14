@@ -2,7 +2,6 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-
 Vue.config.productionTip = false;
 
 // Material Design Icons
@@ -19,6 +18,10 @@ Vue.component('Button', Button);
 Vue.component('Select', Select);
 Vue.component('InputGroup', InputGroup);
 Vue.component('Alert', Alert);
+
+// Modal plugin
+import ModalPlugin from './plugins/Modal.js';
+Vue.use(ModalPlugin);
 
 new Vue({
   router,

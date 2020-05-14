@@ -44,7 +44,7 @@
           <Locale v-for="locale in locales" :key="locale.name" :locale="locale" />
           <div class="menu-container">
             <InputGroup>
-              <Button icon="plus" class="menu-button">New Locale</Button>
+              <Button icon="plus" class="menu-button" @click="addLocale">New Locale</Button>
             </InputGroup>
           </div>
         </div>
@@ -97,6 +97,11 @@ export default {
       } else {
         this.$store.commit('setMenu', menu);
       }
+    },
+    addLocale: function() {
+      this.$modal({ type: 'prompt', message: 'Please enter a new locale name:' }, function(value) {
+        alert(value);
+      });
     },
   },
 };
