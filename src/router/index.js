@@ -17,7 +17,7 @@ const routes = [
       if (store.state.projectLoaded) {
         next({ path: '/project' });
       } else {
-        next({ path: '/home' });
+        next();
       }
     },
   },
@@ -28,6 +28,13 @@ const routes = [
   {
     path: '/project',
     component: Project,
+    beforeEnter: (_to, _from, next) => {
+      if (store.state.projectLoaded) {
+        next();
+      } else {
+        next({ path: '/home' });
+      }
+    },
   },
 ];
 

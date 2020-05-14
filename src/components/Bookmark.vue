@@ -1,6 +1,6 @@
 <template>
   <div class="bookmark" @click="expanded = !expanded">
-    <span class="mdi mdi-application-import load-project" @click.stop="loadProject" />
+    <span class="mdi mdi-application-import load-project" @click.stop="attemptLoadProject" />
     {{ project.name }}
     <div class="bookmark-details" v-show="expanded">
       <div class="bookmark-path">{{ project.path }}</div>
@@ -27,7 +27,9 @@ export default {
   methods: {
     attemptLoadProject: function() {
       if (this.projectLoaded) {
-        //this.$confirm()
+        this.$confirm({ message: 'Are you sure you want to open this project? Any unsaved progress on the currently loaded project will be lost.' }, () => {
+          this.loadProject();
+        });
       } else {
         this.loadProject();
       }
@@ -36,7 +38,9 @@ export default {
       this.$store
         .dispatch('loadProject', { path: this.project.path, format: this.project.format, name: '' })
         .then(() => {
-          this.$router.push('/project');
+          if (this.$route.path !== '/project') {
+            this.$router.push('/project');
+          }
         })
         .catch(error => {
           this.error = error.message;

@@ -102,12 +102,13 @@ export default {
     saveProject: function() {
       // TODO - save project
       console.warn("TODO: implement 'save project'.");
-      this.$modal({ title: 'test' }, `<Button>lol</Button>`);
     },
     closeProject: function() {
-      this.$router.push({ path: 'home' });
-      this.$store.commit('setMenu', 'bookmarks');
-      this.$store.commit('closeProject');
+      this.$confirm({ message: 'Are you sure you want to close this project? Any unsaved progress will be lost.' }, () => {
+        this.$router.push({ path: 'home' });
+        this.$store.commit('setMenu', 'bookmarks');
+        this.$store.commit('closeProject');
+      });
     },
     addLocale: function() {
       this.$prompt({ title: 'New Locale', message: 'Please enter a new locale name:' }, localeName => {
